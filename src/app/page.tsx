@@ -190,8 +190,8 @@ export default function Page() {
       </Box>
 
       {/* RESULTS SECTION  */}
-      <Box as="section" id="section2" width="90%">
-        <SimpleGrid minChildWidth="240px" spacing="40px">
+      <Box as="section" id="section2" width="90%" marginX="auto">
+        <SimpleGrid minChildWidth="350px" spacing="40px">
           {results?.map((categories: Categories, index) => {
             if (category == "films") {
               const films = categories as Films;
