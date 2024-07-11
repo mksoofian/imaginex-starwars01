@@ -45,22 +45,71 @@ export default function Page() {
         .then((data) => {
           setData(data);
           if (category == "films") {
-            setResults(data.results as Films[]);
+            if (query) {
+              const filteredResults = (data.results as Films[]).filter(
+                (film) => {
+                  return film.title.toLowerCase().includes(query.toLowerCase());
+                }
+              );
+              setResults(filteredResults);
+            } else setResults(data.results as Films[]);
           } else if (category == "people") {
-            setResults(data.results as People[]);
+            if (query) {
+              const filteredResults = (data.results as People[]).filter(
+                (person) => {
+                  return person.name
+                    .toLowerCase()
+                    .includes(query.toLowerCase());
+                }
+              );
+              setResults(filteredResults);
+            } else setResults(data.results as People[]);
           } else if (category == "planets") {
-            setResults(data.results as Planets[]);
+            if (query) {
+              const filteredResults = (data.results as Planets[]).filter(
+                (planet) => {
+                  return planet.name
+                    .toLowerCase()
+                    .includes(query.toLowerCase());
+                }
+              );
+              setResults(filteredResults);
+            } else setResults(data.results as Planets[]);
           } else if (category == "species") {
-            setResults(data.results as Species[]);
+            if (query) {
+              const filteredResults = (data.results as Species[]).filter(
+                (species) => {
+                  return species.name
+                    .toLowerCase()
+                    .includes(query.toLowerCase());
+                }
+              );
+              setResults(filteredResults);
+            } else setResults(data.results as Species[]);
           } else if (category == "starships") {
-            setResults(data.results as Starships[]);
+            if (query) {
+              const filteredResults = (data.results as Starships[]).filter(
+                (ship) => {
+                  return ship.name.toLowerCase().includes(query.toLowerCase());
+                }
+              );
+              setResults(filteredResults);
+            } else setResults(data.results as Starships[]);
           } else if (category == "vehicles") {
-            setResults(data.results as Vehicles[]);
+            if (query) {
+              const filteredResults = (data.results as Vehicles[]).filter(
+                (vehicle) => {
+                  return vehicle.name
+                    .toLowerCase()
+                    .includes(query.toLowerCase());
+                }
+              );
+              setResults(filteredResults);
+            } else setResults(data.results as Vehicles[]);
           }
-          //   console.log(results);
         });
     }
-  }, [category, page]);
+  }, [category, page, query]);
 
   const handlePageChange = (value: string) => {
     const toPage =
@@ -84,7 +133,7 @@ export default function Page() {
 
   return (
     <Container maxWidth="1440px" marginX="auto">
-      {/* HERO SECTION WITH QUERY FORM */}
+      {/* SEARCH SECTION WITH QUERY FORM */}
       <Box as="section" id="section1" width="100%">
         <Box
           bg="white"
@@ -117,6 +166,12 @@ export default function Page() {
               <Input
                 type="text"
                 value={query}
+                disabled={category === "" ? true : false}
+                placeholder={
+                  category === ""
+                    ? "You must select a category to search"
+                    : "Search by name"
+                }
                 onChange={(e) => {
                   handleSearch(e.target.value);
                 }}
@@ -127,7 +182,9 @@ export default function Page() {
         <Box position="relative" padding="10">
           <Divider />
           <AbsoluteCenter bg="white" px="4">
-            {data ? `${data.count} Total Results` : "Results"}
+            {data && category !== ""
+              ? `${data.count} Total Results`
+              : "Results"}
           </AbsoluteCenter>
         </Box>
       </Box>
@@ -135,7 +192,7 @@ export default function Page() {
       {/* RESULTS SECTION  */}
       <Box as="section" id="section2" width="90%">
         <SimpleGrid minChildWidth="240px" spacing="40px">
-          {data?.results.map((categories: Categories, index) => {
+          {results?.map((categories: Categories, index) => {
             if (category == "films") {
               const films = categories as Films;
 
@@ -533,7 +590,7 @@ export default function Page() {
 
         {/* Pagination Buttons */}
         <Flex css={{ margin: "25px" }} justifyContent="center" gap="20px">
-          {data && data?.previous !== null && (
+          {data && data?.previous !== null && category !== "" && (
             <Button
               onClick={(e) => handlePageChange(e.currentTarget.value)}
               variant="outline"
@@ -544,7 +601,7 @@ export default function Page() {
               Previous Page
             </Button>
           )}
-          {data && data?.next !== null && (
+          {data && data?.next !== null && category !== "" && (
             <Button
               onClick={(e) => handlePageChange(e.currentTarget.value)}
               variant="outline"
