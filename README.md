@@ -21,3 +21,4 @@ https://imaginex-starwars01.vercel.app/
 
 - Add SSR
 - Return more fields to the cards
+- Find a better approach to conditionally rendering the cards based on types/ category
