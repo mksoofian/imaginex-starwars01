@@ -194,8 +194,6 @@ export default function Page() {
         <SimpleGrid minChildWidth="350px" spacing="40px">
           {results?.map((categories: Categories, index) => {
             if (category == "films") {
-              const films = categories as Films;
-
               const {
                 title,
                 episode_id,
@@ -203,7 +201,8 @@ export default function Page() {
                 director,
                 producer,
                 release_date,
-              } = films;
+              } = categories as Films;
+
               return (
                 <Card key={`${categories}+${index}`}>
                   <CardHeader>
@@ -245,8 +244,6 @@ export default function Page() {
                 </Card>
               );
             } else if (category == "people") {
-              const people = categories as People;
-
               const {
                 name,
                 birth_year,
@@ -257,7 +254,8 @@ export default function Page() {
                 mass,
                 skin_color,
                 homeworld,
-              } = people;
+              } = categories as People;
+
               return (
                 <Card key={`${categories}+${index}`}>
                   <CardHeader>
@@ -298,8 +296,6 @@ export default function Page() {
                 </Card>
               );
             } else if (category == "planets") {
-              const planets = categories as Planets;
-
               const {
                 name,
                 diameter,
@@ -310,7 +306,8 @@ export default function Page() {
                 climate,
                 terrain,
                 surface_water,
-              } = planets;
+              } = categories as Planets;
+
               return (
                 <Card key={`${categories}+${index}`}>
                   <CardHeader>
@@ -356,8 +353,6 @@ export default function Page() {
                 </Card>
               );
             } else if (category == "species") {
-              const species = categories as Species;
-
               const {
                 name,
                 classification,
@@ -368,7 +363,8 @@ export default function Page() {
                 hair_colors,
                 skin_colors,
                 language,
-              } = species;
+              } = categories as Species;
+
               return (
                 <Card key={`${categories}+${index}`}>
                   <CardHeader>
@@ -415,8 +411,6 @@ export default function Page() {
                 </Card>
               );
             } else if (category == "starships") {
-              const starships = categories as Starships;
-
               const {
                 name,
                 model,
@@ -431,7 +425,8 @@ export default function Page() {
                 MGLT,
                 cargo_capacity,
                 consumables,
-              } = starships;
+              } = categories as Starships;
+
               return (
                 <Card key={`${categories}+${index}`}>
                   <CardHeader>
@@ -493,8 +488,6 @@ export default function Page() {
                 </Card>
               );
             } else if (category == "vehicles") {
-              const vehicles = categories as Vehicles;
-
               const {
                 name,
                 model,
@@ -507,7 +500,8 @@ export default function Page() {
                 max_atmosphering_speed,
                 cargo_capacity,
                 consumables,
-              } = vehicles;
+              } = categories as Vehicles;
+
               return (
                 <Card key={`${categories}+${index}`}>
                   <CardHeader>
@@ -561,30 +555,6 @@ export default function Page() {
                 </Card>
               );
             }
-
-            //   <Card key={`${categories}+${index}`}>
-            //     <CardHeader>
-            //       <Heading size="md">
-            //         {(categories as People).name
-            //           ? (categories as People).name
-            //           : (categories as Films).title}
-            //       </Heading>
-            //     </CardHeader>
-
-            //     <CardBody>
-            //       <Stack divider={<StackDivider />} spacing="4">
-            //         <Box>
-            //           <Heading size="xs" textTransform="uppercase">
-            //             Summary
-            //           </Heading>
-            //           <Text pt="2" fontSize="sm">
-            //             View a summary of all your clients over the last month.
-            //           </Text>
-            //         </Box>
-            //       </Stack>
-            //     </CardBody>
-            //   </Card>
-            // );
           })}
         </SimpleGrid>
 
