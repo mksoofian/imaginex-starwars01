@@ -60,6 +60,70 @@ export default function Page() {
           } else if (category == "vehicles") {
             setResults(data.results as Vehicles[]);
           }
+          //   ------------------ How can we refactor this? ------------------
+          //   if (category == "films") {
+          //     if (query) {
+          //       const filteredResults = (data.results as Films[]).filter(
+          //         (film) => {
+          //           return film.title.toLowerCase().includes(query.toLowerCase());
+          //         }
+          //       );
+          //       setResults(filteredResults);
+          //     } else setResults(data.results as Films[]);
+          //   } else if (category == "people") {
+          //     if (query) {
+          //       const filteredResults = (data.results as People[]).filter(
+          //         (person) => {
+          //           return person.name
+          //             .toLowerCase()
+          //             .includes(query.toLowerCase());
+          //         }
+          //       );
+          //       setResults(filteredResults);
+          //     } else setResults(data.results as People[]);
+          //   } else if (category == "planets") {
+          //     if (query) {
+          //       const filteredResults = (data.results as Planets[]).filter(
+          //         (planet) => {
+          //           return planet.name
+          //             .toLowerCase()
+          //             .includes(query.toLowerCase());
+          //         }
+          //       );
+          //       setResults(filteredResults);
+          //     } else setResults(data.results as Planets[]);
+          //   } else if (category == "species") {
+          //     if (query) {
+          //       const filteredResults = (data.results as Species[]).filter(
+          //         (species) => {
+          //           return species.name
+          //             .toLowerCase()
+          //             .includes(query.toLowerCase());
+          //         }
+          //       );
+          //       setResults(filteredResults);
+          //     } else setResults(data.results as Species[]);
+          //   } else if (category == "starships") {
+          //     if (query) {
+          //       const filteredResults = (data.results as Starships[]).filter(
+          //         (ship) => {
+          //           return ship.name.toLowerCase().includes(query.toLowerCase());
+          //         }
+          //       );
+          //       setResults(filteredResults);
+          //     } else setResults(data.results as Starships[]);
+          //   } else if (category == "vehicles") {
+          //     if (query) {
+          //       const filteredResults = (data.results as Vehicles[]).filter(
+          //         (vehicle) => {
+          //           return vehicle.name
+          //             .toLowerCase()
+          //             .includes(query.toLowerCase());
+          //         }
+          //       );
+          //       setResults(filteredResults);
+          //     } else setResults(data.results as Vehicles[]);
+          //   }
         });
       setIsLoading(false);
     } else if (category) {
