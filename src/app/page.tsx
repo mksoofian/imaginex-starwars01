@@ -40,73 +40,46 @@ export default function Page() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    if (category) {
+    if (category && query) {
+      fetch(`https://swapi.dev/api/${category.toLowerCase()}/?search=${query}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setData(data);
+          console.log(data);
+          //   ------------------ How can we refactor this? ------------------
+          if (category == "films") {
+            setResults(data.results as Films[]);
+          } else if (category == "people") {
+            setResults(data.results as People[]);
+          } else if (category == "planets") {
+            setResults(data.results as Planets[]);
+          } else if (category == "species") {
+            setResults(data.results as Species[]);
+          } else if (category == "starships") {
+            setResults(data.results as Starships[]);
+          } else if (category == "vehicles") {
+            setResults(data.results as Vehicles[]);
+          }
+        });
+      setIsLoading(false);
+    } else if (category) {
       fetch(`https://swapi.dev/api/${category.toLowerCase()}/?page=${page}`)
         .then((res) => res.json())
         .then((data) => {
           setData(data);
+          console.log(data);
           if (category == "films") {
-            if (query) {
-              const filteredResults = (data.results as Films[]).filter(
-                (film) => {
-                  return film.title.toLowerCase().includes(query.toLowerCase());
-                }
-              );
-              setResults(filteredResults);
-            } else setResults(data.results as Films[]);
+            setResults(data.results as Films[]);
           } else if (category == "people") {
-            if (query) {
-              const filteredResults = (data.results as People[]).filter(
-                (person) => {
-                  return person.name
-                    .toLowerCase()
-                    .includes(query.toLowerCase());
-                }
-              );
-              setResults(filteredResults);
-            } else setResults(data.results as People[]);
+            setResults(data.results as People[]);
           } else if (category == "planets") {
-            if (query) {
-              const filteredResults = (data.results as Planets[]).filter(
-                (planet) => {
-                  return planet.name
-                    .toLowerCase()
-                    .includes(query.toLowerCase());
-                }
-              );
-              setResults(filteredResults);
-            } else setResults(data.results as Planets[]);
+            setResults(data.results as Planets[]);
           } else if (category == "species") {
-            if (query) {
-              const filteredResults = (data.results as Species[]).filter(
-                (species) => {
-                  return species.name
-                    .toLowerCase()
-                    .includes(query.toLowerCase());
-                }
-              );
-              setResults(filteredResults);
-            } else setResults(data.results as Species[]);
+            setResults(data.results as Species[]);
           } else if (category == "starships") {
-            if (query) {
-              const filteredResults = (data.results as Starships[]).filter(
-                (ship) => {
-                  return ship.name.toLowerCase().includes(query.toLowerCase());
-                }
-              );
-              setResults(filteredResults);
-            } else setResults(data.results as Starships[]);
+            setResults(data.results as Starships[]);
           } else if (category == "vehicles") {
-            if (query) {
-              const filteredResults = (data.results as Vehicles[]).filter(
-                (vehicle) => {
-                  return vehicle.name
-                    .toLowerCase()
-                    .includes(query.toLowerCase());
-                }
-              );
-              setResults(filteredResults);
-            } else setResults(data.results as Vehicles[]);
+            setResults(data.results as Vehicles[]);
           }
         });
       setIsLoading(false);
@@ -132,6 +105,7 @@ export default function Page() {
 
   function handleCategorySelection(category: string) {
     setCategory(category);
+    setPage(1); // Reset page to 1
     setIsLoading(true);
   }
 
@@ -197,7 +171,6 @@ export default function Page() {
       <Box as="section" id="section2" width="90%" marginX="auto">
         <SimpleGrid minChildWidth="350px" spacing="40px">
           {isLoading ? (
-            // <Box marginX="auto">... Loading Results</Box>
             <Button
               isLoading
               loadingText="Loading"
@@ -205,10 +178,13 @@ export default function Page() {
               variant="ghost"
               spinnerPlacement="start"
             >
-              Submit
+              Loading
             </Button>
           ) : (
             results?.map((categories: Categories, index) => {
+              //   ------------------ How can we refactor this? ------------------
+              // Make special Card components for each category
+              // How to render  items which are an array without another fetch?
               if (category == "films") {
                 const {
                   title,
