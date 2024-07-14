@@ -39,8 +39,8 @@ export default function Page() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setIsLoading(true);
     if (category) {
+      setIsLoading(true);
       fetch(
         `https://swapi.dev/api/${category.toLowerCase()}/?search=${query}&page=${page}`
       )
