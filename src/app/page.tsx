@@ -1,5 +1,11 @@
 "use client";
 
+import { FilmsCard } from "@/components/filmCard";
+import { PersonCard } from "@/components/personCard";
+import { PlanetCard } from "@/components/planetCard";
+import { SpeciesCard } from "@/components/speciesCard";
+import { StarshipCard } from "@/components/starshipCard";
+import { VehicleCard } from "@/components/vehicleCard";
 import {
   AbsoluteCenter,
   Accordion,
@@ -137,7 +143,7 @@ export default function Page() {
           ) : (
             data?.results?.map((categories: Categories, index) => {
               //   ------------------ How can we refactor this? ------------------
-              // Make special Card components for each category: Yes, also creat eswitch case
+              // Make special Card components for each category: Yes, also create switch case
               // How to render  items which are an array without another fetch?
               if (category == "films") {
                 const {
@@ -150,46 +156,15 @@ export default function Page() {
                 } = categories as Films;
 
                 return (
-                  <Card key={`${categories}+${index}`}>
-                    <CardHeader>
-                      <Heading size="md">{title}</Heading>
-                      <Text pt="2" fontSize="sm">
-                        Episode: {episode_id}
-                      </Text>
-                    </CardHeader>
-
-                    <CardBody>
-                      <List spacing={3} marginBottom={3}>
-                        <ListItem paddingLeft={3}>
-                          {" "}
-                          <Text fontWeight="bold"> Director</Text> {director}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Producer</Text> {producer}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Release Date:</Text>
-                          {release_date}
-                        </ListItem>
-                      </List>
-
-                      <Accordion allowToggle>
-                        <AccordionItem>
-                          <h2>
-                            <AccordionButton>
-                              <Box as="span" flex="1" textAlign="left">
-                                Opening Crawl
-                              </Box>
-                              <AccordionIcon />
-                            </AccordionButton>
-                          </h2>
-                          <AccordionPanel pb={4}>
-                            {opening_crawl}
-                          </AccordionPanel>
-                        </AccordionItem>
-                      </Accordion>
-                    </CardBody>
-                  </Card>
+                  <FilmsCard
+                    key={`${category}+${index}`}
+                    title={title}
+                    episode_id={episode_id}
+                    opening_crawl={opening_crawl}
+                    director={director}
+                    producer={producer}
+                    release_date={release_date}
+                  />
                 );
               } else if (category == "people") {
                 const {
@@ -205,44 +180,18 @@ export default function Page() {
                 } = categories as People;
 
                 return (
-                  <Card key={`${categories}+${index}`}>
-                    <CardHeader>
-                      <Heading size="md">{name}</Heading>
-                    </CardHeader>
-
-                    <CardBody>
-                      <List spacing={3} marginBottom={3}>
-                        <ListItem paddingLeft={3}>
-                          {" "}
-                          <Text fontWeight="bold"> Birth Year</Text>{" "}
-                          {birth_year}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Eye Color</Text> {eye_color}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Gender</Text>
-                          {gender}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Hair Color</Text>
-                          {hair_color}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Height</Text>
-                          {height}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Mass</Text>
-                          {mass}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Skin Color</Text>
-                          {skin_color}
-                        </ListItem>
-                      </List>
-                    </CardBody>
-                  </Card>
+                  <PersonCard
+                    key={`${category}+${index}`}
+                    name={name}
+                    birth_year={birth_year}
+                    eye_color={eye_color}
+                    gender={gender}
+                    hair_color={hair_color}
+                    height={height}
+                    mass={mass}
+                    skin_color={skin_color}
+                    homeworld={homeworld}
+                  />
                 );
               } else if (category == "planets") {
                 const {
@@ -258,48 +207,18 @@ export default function Page() {
                 } = categories as Planets;
 
                 return (
-                  <Card key={`${categories}+${index}`}>
-                    <CardHeader>
-                      <Heading size="md">{name}</Heading>
-                    </CardHeader>
-
-                    <CardBody>
-                      <List spacing={3} marginBottom={3}>
-                        <ListItem paddingLeft={3}>
-                          {" "}
-                          <Text fontWeight="bold"> Diameter</Text> {diameter}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Rotation Period</Text>{" "}
-                          {rotation_period}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Orbital Period</Text>
-                          {orbital_period}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold">Gravity</Text>
-                          {gravity}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Population</Text>
-                          {population}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Climate</Text>
-                          {climate}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Terrain</Text>
-                          {terrain}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Surface Water</Text>
-                          {surface_water}
-                        </ListItem>
-                      </List>
-                    </CardBody>
-                  </Card>
+                  <PlanetCard
+                    key={`${categories}+${index}`}
+                    name={name}
+                    diameter={diameter}
+                    rotation_period={rotation_period}
+                    orbital_period={orbital_period}
+                    gravity={gravity}
+                    population={population}
+                    climate={climate}
+                    terrain={terrain}
+                    surface_water={surface_water}
+                  />
                 );
               } else if (category == "species") {
                 const {
@@ -315,49 +234,18 @@ export default function Page() {
                 } = categories as Species;
 
                 return (
-                  <Card key={`${categories}+${index}`}>
-                    <CardHeader>
-                      <Heading size="md">{name}</Heading>
-                    </CardHeader>
-
-                    <CardBody>
-                      <List spacing={3} marginBottom={3}>
-                        <ListItem paddingLeft={3}>
-                          {" "}
-                          <Text fontWeight="bold"> Classification</Text>{" "}
-                          {classification}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Designation</Text>{" "}
-                          {designation}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Average Height</Text>
-                          {average_height}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold">Average Life Span</Text>
-                          {average_lifespan}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Eye Colors</Text>
-                          {eye_colors}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Hair Colors</Text>
-                          {hair_colors}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Skin Colors</Text>
-                          {skin_colors}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Language</Text>
-                          {language}
-                        </ListItem>
-                      </List>
-                    </CardBody>
-                  </Card>
+                  <SpeciesCard
+                    key={`${categories}+${index}`}
+                    name={name}
+                    classification={classification}
+                    designation={designation}
+                    average_height={average_height}
+                    average_lifespan={average_lifespan}
+                    eye_colors={eye_colors}
+                    hair_colors={hair_colors}
+                    skin_colors={skin_colors}
+                    language={language}
+                  />
                 );
               } else if (category == "starships") {
                 const {
@@ -377,64 +265,22 @@ export default function Page() {
                 } = categories as Starships;
 
                 return (
-                  <Card key={`${categories}+${index}`}>
-                    <CardHeader>
-                      <Heading size="md">{name}</Heading>
-                    </CardHeader>
-
-                    <CardBody>
-                      <List spacing={3} marginBottom={3}>
-                        <ListItem paddingLeft={3}>
-                          {" "}
-                          <Text fontWeight="bold"> Model</Text> {model}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Starship Class</Text>{" "}
-                          {starship_class}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Manufacturer</Text>
-                          {manufacturer}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold">Cost in Credits</Text>
-                          {cost_in_credits}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Length</Text>
-                          {length}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Crew</Text>
-                          {crew}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Passengers</Text>
-                          {passengers}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Max Atmosphering Speed</Text>
-                          {max_atmosphering_speed}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> HyperDrive Rating</Text>
-                          {hyperdrive_rating}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> MGLT</Text>
-                          {MGLT}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Cargo Capacity</Text>
-                          {cargo_capacity}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Consumables</Text>
-                          {consumables}
-                        </ListItem>
-                      </List>
-                    </CardBody>
-                  </Card>
+                  <StarshipCard
+                    key={`${categories}+${index}`}
+                    name={name}
+                    model={model}
+                    starship_class={starship_class}
+                    manufacturer={manufacturer}
+                    cost_in_credits={cost_in_credits}
+                    length={length}
+                    crew={crew}
+                    passengers={passengers}
+                    max_atmosphering_speed={max_atmosphering_speed}
+                    hyperdrive_rating={hyperdrive_rating}
+                    MGLT={MGLT}
+                    cargo_capacity={cargo_capacity}
+                    consumables={consumables}
+                  />
                 );
               } else if (category == "vehicles") {
                 const {
@@ -452,56 +298,20 @@ export default function Page() {
                 } = categories as Vehicles;
 
                 return (
-                  <Card key={`${categories}+${index}`}>
-                    <CardHeader>
-                      <Heading size="md">{name}</Heading>
-                    </CardHeader>
-
-                    <CardBody>
-                      <List spacing={3} marginBottom={3}>
-                        <ListItem paddingLeft={3}>
-                          {" "}
-                          <Text fontWeight="bold"> Model</Text> {model}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Vehicle Class</Text>{" "}
-                          {vehicle_class}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Manufacturer</Text>
-                          {manufacturer}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold">Cost in Credits</Text>
-                          {cost_in_credits}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Length</Text>
-                          {length}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Crew</Text>
-                          {crew}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Passengers</Text>
-                          {passengers}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Max Atmosphering Speed</Text>
-                          {max_atmosphering_speed}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Cargo Capacity</Text>
-                          {cargo_capacity}
-                        </ListItem>
-                        <ListItem paddingLeft={3}>
-                          <Text fontWeight="bold"> Consumables</Text>
-                          {consumables}
-                        </ListItem>
-                      </List>
-                    </CardBody>
-                  </Card>
+                  <VehicleCard
+                    key={`${categories}+${index}`}
+                    name={name}
+                    model={model}
+                    vehicle_class={vehicle_class}
+                    manufacturer={manufacturer}
+                    length={length}
+                    cost_in_credits={cost_in_credits}
+                    crew={crew}
+                    passengers={passengers}
+                    max_atmosphering_speed={max_atmosphering_speed}
+                    cargo_capacity={cargo_capacity}
+                    consumables={consumables}
+                  />
                 );
               }
             })
