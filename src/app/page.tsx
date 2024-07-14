@@ -32,145 +32,35 @@ import {
 import { useState, useEffect } from "react";
 
 export default function Page() {
-  const [query, setQuery] = useState<string>("");
+  const [query, setQuery] = useState("");
   const [data, setData] = useState<ResponseInfo | null>(null);
   const [category, setCategory] = useState("");
-  const [page, setPage] = useState<number>(1);
-  const [results, setResults] = useState<Categories[] | undefined>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (category && query) {
-      fetch(`https://swapi.dev/api/${category.toLowerCase()}/?search=${query}`)
+    setIsLoading(true);
+    if (category) {
+      fetch(
+        `https://swapi.dev/api/${category.toLowerCase()}/?search=${query}&page=${page}`
+      )
         .then((res) => res.json())
         .then((data) => {
           setData(data);
           console.log(data);
-          //   ------------------ How can we refactor this? ------------------
-          if (category == "films") {
-            setResults(data.results as Films[]);
-          } else if (category == "people") {
-            setResults(data.results as People[]);
-          } else if (category == "planets") {
-            setResults(data.results as Planets[]);
-          } else if (category == "species") {
-            setResults(data.results as Species[]);
-          } else if (category == "starships") {
-            setResults(data.results as Starships[]);
-          } else if (category == "vehicles") {
-            setResults(data.results as Vehicles[]);
-          }
-          //   ------------------ How can we refactor this? ------------------
-          //   if (category == "films") {
-          //     if (query) {
-          //       const filteredResults = (data.results as Films[]).filter(
-          //         (film) => {
-          //           return film.title.toLowerCase().includes(query.toLowerCase());
-          //         }
-          //       );
-          //       setResults(filteredResults);
-          //     } else setResults(data.results as Films[]);
-          //   } else if (category == "people") {
-          //     if (query) {
-          //       const filteredResults = (data.results as People[]).filter(
-          //         (person) => {
-          //           return person.name
-          //             .toLowerCase()
-          //             .includes(query.toLowerCase());
-          //         }
-          //       );
-          //       setResults(filteredResults);
-          //     } else setResults(data.results as People[]);
-          //   } else if (category == "planets") {
-          //     if (query) {
-          //       const filteredResults = (data.results as Planets[]).filter(
-          //         (planet) => {
-          //           return planet.name
-          //             .toLowerCase()
-          //             .includes(query.toLowerCase());
-          //         }
-          //       );
-          //       setResults(filteredResults);
-          //     } else setResults(data.results as Planets[]);
-          //   } else if (category == "species") {
-          //     if (query) {
-          //       const filteredResults = (data.results as Species[]).filter(
-          //         (species) => {
-          //           return species.name
-          //             .toLowerCase()
-          //             .includes(query.toLowerCase());
-          //         }
-          //       );
-          //       setResults(filteredResults);
-          //     } else setResults(data.results as Species[]);
-          //   } else if (category == "starships") {
-          //     if (query) {
-          //       const filteredResults = (data.results as Starships[]).filter(
-          //         (ship) => {
-          //           return ship.name.toLowerCase().includes(query.toLowerCase());
-          //         }
-          //       );
-          //       setResults(filteredResults);
-          //     } else setResults(data.results as Starships[]);
-          //   } else if (category == "vehicles") {
-          //     if (query) {
-          //       const filteredResults = (data.results as Vehicles[]).filter(
-          //         (vehicle) => {
-          //           return vehicle.name
-          //             .toLowerCase()
-          //             .includes(query.toLowerCase());
-          //         }
-          //       );
-          //       setResults(filteredResults);
-          //     } else setResults(data.results as Vehicles[]);
-          //   }
-        });
-      setIsLoading(false);
-    } else if (category) {
-      fetch(`https://swapi.dev/api/${category.toLowerCase()}/?page=${page}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setData(data);
-          console.log(data);
-          if (category == "films") {
-            setResults(data.results as Films[]);
-          } else if (category == "people") {
-            setResults(data.results as People[]);
-          } else if (category == "planets") {
-            setResults(data.results as Planets[]);
-          } else if (category == "species") {
-            setResults(data.results as Species[]);
-          } else if (category == "starships") {
-            setResults(data.results as Starships[]);
-          } else if (category == "vehicles") {
-            setResults(data.results as Vehicles[]);
-          }
         });
       setIsLoading(false);
     }
   }, [category, page, query]);
 
-  const handlePageChange = (value: string) => {
-    setIsLoading(true);
-    const toPage =
-      value === "next"
-        ? data?.next.slice(data?.next.length - 1)
-        : data?.previous.slice(data?.previous.length - 1);
-    if (toPage === "/") {
-      setPage(1);
-    } else {
-      const pageNumber = parseInt(toPage as string);
-      setPage(pageNumber);
-    }
-  };
   function handleSearch(term: string) {
     setQuery(term);
+    setPage(1); // Reset page to 1
   }
 
   function handleCategorySelection(category: string) {
     setCategory(category);
     setPage(1); // Reset page to 1
-    setIsLoading(true);
   }
 
   return (
@@ -245,9 +135,9 @@ export default function Page() {
               Loading
             </Button>
           ) : (
-            results?.map((categories: Categories, index) => {
+            data?.results?.map((categories: Categories, index) => {
               //   ------------------ How can we refactor this? ------------------
-              // Make special Card components for each category
+              // Make special Card components for each category: Yes, also creat eswitch case
               // How to render  items which are an array without another fetch?
               if (category == "films") {
                 const {
@@ -622,7 +512,7 @@ export default function Page() {
         <Flex css={{ margin: "25px" }} justifyContent="center" gap="20px">
           {data && data?.previous !== null && category !== "" && (
             <Button
-              onClick={(e) => handlePageChange(e.currentTarget.value)}
+              onClick={(e) => setPage(page - 1)} //setPage(page -1)
               variant="outline"
               size="md"
               css={{ border: "1px solid black" }}
@@ -633,7 +523,7 @@ export default function Page() {
           )}
           {data && data?.next !== null && category !== "" && (
             <Button
-              onClick={(e) => handlePageChange(e.currentTarget.value)}
+              onClick={(e) => setPage(page + 1)}
               variant="outline"
               size="md"
               css={{ border: "1px solid black" }}
