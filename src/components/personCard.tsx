@@ -7,23 +7,14 @@ import {
   ListItem,
   Text,
 } from "@chakra-ui/react";
+import { toPascalCase, convertSnakeCase } from "@/utils/convertCase";
 
 type Props = {
   category: People;
 };
 
 export function PersonCard({ category }: Props) {
-  const {
-    name,
-    birth_year,
-    eye_color,
-    gender,
-    hair_color,
-    height,
-    mass,
-    skin_color,
-    homeworld,
-  } = category;
+  const { name } = category;
 
   return (
     <Card>
@@ -33,33 +24,26 @@ export function PersonCard({ category }: Props) {
 
       <CardBody>
         <List spacing={3} marginBottom={3}>
-          <ListItem paddingLeft={3}>
-            {" "}
-            <Text fontWeight="bold"> Birth Year</Text> {birth_year}
-          </ListItem>
-          <ListItem paddingLeft={3}>
-            <Text fontWeight="bold"> Eye Color</Text> {eye_color}
-          </ListItem>
-          <ListItem paddingLeft={3}>
-            <Text fontWeight="bold"> Gender</Text>
-            {gender}
-          </ListItem>
-          <ListItem paddingLeft={3}>
-            <Text fontWeight="bold"> Hair Color</Text>
-            {hair_color}
-          </ListItem>
-          <ListItem paddingLeft={3}>
-            <Text fontWeight="bold"> Height</Text>
-            {height}
-          </ListItem>
-          <ListItem paddingLeft={3}>
-            <Text fontWeight="bold"> Mass</Text>
-            {mass}
-          </ListItem>
-          <ListItem paddingLeft={3}>
-            <Text fontWeight="bold"> Skin Color</Text>
-            {skin_color}
-          </ListItem>
+          {Object.entries(category).map(([key, value]) => {
+            // Check if key is snake_case and convert to Pascal Case if so
+            if (key.includes("_")) {
+              const sentenceCase = convertSnakeCase(key);
+
+              return (
+                <ListItem key={category.url} paddingLeft={3}>
+                  <Text fontWeight="bold"> {sentenceCase}</Text> {value}
+                </ListItem>
+              );
+            }
+
+            const pascalCase = toPascalCase(key);
+            return (
+              <ListItem key={category.url} paddingLeft={3}>
+                <Text fontWeight="bold"> {pascalCase}</Text>
+                {value}
+              </ListItem>
+            );
+          })}
         </List>
       </CardBody>
     </Card>
