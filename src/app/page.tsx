@@ -18,6 +18,7 @@ import {
   Input,
   Select,
   SimpleGrid,
+  Spinner,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 
@@ -58,12 +59,12 @@ export default function Page() {
 
   function handleSearch(term: string) {
     setQuery(term);
-    setPage(1); // Reset page to 1 to avoid error if
+    setPage(1);
   }
 
   function handleCategorySelection(category: string) {
     setCategory(category);
-    setPage(1); // Reset page to 1
+    setPage(1);
   }
 
   return (
@@ -128,16 +129,7 @@ export default function Page() {
       <Box as="section" id="section2" width="90%" marginX="auto">
         <SimpleGrid minChildWidth="350px" spacing="40px">
           {isLoading ? (
-            //Switch this to an animation... shouldnt be using a button...
-            <Button
-              isLoading
-              loadingText="Loading"
-              colorScheme="teal"
-              variant="ghost"
-              spinnerPlacement="start"
-            >
-              Loading
-            </Button>
+            <Spinner />
           ) : (
             data?.results?.map((categories: Categories, index) => {
               //   ------------------ How can we refactor this? ------------------
