@@ -43,6 +43,16 @@ export default function Page() {
   const [category, setCategory] = useState("");
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const [debounced, setDebounced] = useState("");
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setDebounced(query);
+    }, 1000);
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [query]);
 
   useEffect(() => {
     if (category) {
@@ -58,7 +68,7 @@ export default function Page() {
           setIsLoading(false);
         });
     }
-  }, [category, page, query]);
+  }, [category, page, debounced]);
 
   function handleSearch(term: string) {
     setQuery(term);
