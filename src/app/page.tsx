@@ -129,7 +129,9 @@ export default function Page() {
       <Box as="section" id="section2" width="90%" marginX="auto">
         <SimpleGrid minChildWidth="350px" spacing="40px">
           {isLoading ? (
-            <Spinner />
+            <Box marginX="auto" marginY="25px">
+              <Spinner />
+            </Box>
           ) : (
             data?.results?.map((categories: Categories, index) => {
               //   ------------------ How can we refactor this? ------------------
