@@ -47,6 +47,7 @@ export default function Page() {
   useEffect(() => {
     if (category) {
       setIsLoading(true);
+
       fetch(
         `https://swapi.dev/api/${category.toLowerCase()}/?search=${query}&page=${page}`
       )
@@ -54,8 +55,8 @@ export default function Page() {
         .then((data) => {
           setData(data);
           console.log(data);
+          setIsLoading(false);
         });
-      setIsLoading(false);
     }
   }, [category, page, query]);
 
