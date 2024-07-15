@@ -28,6 +28,7 @@ export default function Page() {
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [debounced, setDebounced] = useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -50,7 +51,8 @@ export default function Page() {
           setData(data);
           console.log(data);
           setIsLoading(false);
-        }); //add error handling
+        })
+        .catch((error) => setError("Oops, something went wrong."));
     }
   }, [category, page, debounced]);
 
