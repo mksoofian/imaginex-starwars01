@@ -8,32 +8,16 @@ import { StarshipCard } from "@/components/starshipCard";
 import { VehicleCard } from "@/components/vehicleCard";
 import {
   AbsoluteCenter,
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-  background,
   Box,
   Button,
-  Card,
-  CardBody,
-  CardHeader,
   Container,
   Divider,
   Flex,
   FormControl,
   FormLabel,
-  Heading,
   Input,
-  List,
-  ListItem,
   Select,
   SimpleGrid,
-  Stack,
-  StackDivider,
-  Text,
-  UnorderedList,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 
@@ -59,20 +43,20 @@ export default function Page() {
       setIsLoading(true);
 
       fetch(
-        `https://swapi.dev/api/${category.toLowerCase()}/?search=${query}&page=${page}`
+        `https://swapi.dev/api/${category.toLowerCase()}/?search=${debounced}&page=${page}`
       )
         .then((res) => res.json())
         .then((data) => {
           setData(data);
           console.log(data);
           setIsLoading(false);
-        });
+        }); //add error handling
     }
   }, [category, page, debounced]);
 
   function handleSearch(term: string) {
     setQuery(term);
-    setPage(1); // Reset page to 1
+    setPage(1); // Reset page to 1 to avoid error if
   }
 
   function handleCategorySelection(category: string) {
@@ -142,6 +126,7 @@ export default function Page() {
       <Box as="section" id="section2" width="90%" marginX="auto">
         <SimpleGrid minChildWidth="350px" spacing="40px">
           {isLoading ? (
+            //Switch this to an animation... shouldnt be using a button...
             <Button
               isLoading
               loadingText="Loading"
@@ -157,24 +142,10 @@ export default function Page() {
               // How to render  items which are an array without another fetch?
               switch (category) {
                 case "films":
-                  const {
-                    title,
-                    episode_id,
-                    opening_crawl,
-                    director,
-                    producer,
-                    release_date,
-                  } = categories as Films;
-
                   return (
                     <FilmsCard
                       key={`${category}+${index}`}
-                      title={title}
-                      episode_id={episode_id}
-                      opening_crawl={opening_crawl}
-                      director={director}
-                      producer={producer}
-                      release_date={release_date}
+                      category={categories as Films}
                     />
                   );
                 case "people":
@@ -221,9 +192,9 @@ export default function Page() {
 
         {/* Pagination Buttons */}
         <Flex css={{ margin: "25px" }} justifyContent="center" gap="20px">
-          {data && data?.previous !== null && category !== "" && (
+          {data?.previous !== null && category !== "" && (
             <Button
-              onClick={(e) => setPage(page - 1)} //setPage(page -1)
+              onClick={() => setPage(page - 1)}
               variant="outline"
               size="md"
               css={{ border: "1px solid black" }}
@@ -232,9 +203,9 @@ export default function Page() {
               Previous Page
             </Button>
           )}
-          {data && data?.next !== null && category !== "" && (
+          {data?.next !== null && category !== "" && (
             <Button
-              onClick={(e) => setPage(page + 1)}
+              onClick={() => setPage(page + 1)}
               variant="outline"
               size="md"
               css={{ border: "1px solid black" }}

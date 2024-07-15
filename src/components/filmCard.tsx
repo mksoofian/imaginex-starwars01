@@ -15,22 +15,13 @@ import {
 } from "@chakra-ui/react";
 
 type Props = {
-  title: string;
-  episode_id: number;
-  opening_crawl: string;
-  director: string;
-  producer: string;
-  release_date: string;
+  category: Films;
 };
 
-export function FilmsCard({
-  title,
-  episode_id,
-  opening_crawl,
-  director,
-  producer,
-  release_date,
-}: Props) {
+export function FilmsCard({ category }: Props) {
+  const { title, episode_id, opening_crawl, director, producer, release_date } =
+    category;
+
   return (
     <Card>
       <CardHeader>

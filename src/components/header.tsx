@@ -10,7 +10,7 @@ export default function Header() {
       justifyContent="space-between"
       alignItems="center"
     >
-      <Text fontWeight="black"> Imperial Database </Text>
+      <Text fontWeight="black">Imperial Database</Text>
       <Image
         src={"/vader.png"}
         alt="darth vader logo"
