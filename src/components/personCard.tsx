@@ -9,28 +9,22 @@ import {
 } from "@chakra-ui/react";
 
 type Props = {
-  name: string;
-  birth_year: string;
-  eye_color: string;
-  gender: string;
-  hair_color: string;
-  height: string;
-  mass: string;
-  skin_color: string;
-  homeworld: string;
+  category: People;
 };
 
-export function PersonCard({
-  name,
-  birth_year,
-  eye_color,
-  gender,
-  hair_color,
-  height,
-  mass,
-  skin_color,
-  homeworld,
-}: Props) {
+export function PersonCard({ category }: Props) {
+  const {
+    name,
+    birth_year,
+    eye_color,
+    gender,
+    hair_color,
+    height,
+    mass,
+    skin_color,
+    homeworld,
+  } = category;
+
   return (
     <Card>
       <CardHeader>

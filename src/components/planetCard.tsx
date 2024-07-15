@@ -9,28 +9,22 @@ import {
 } from "@chakra-ui/react";
 
 type Props = {
-  name: string;
-  diameter: string;
-  rotation_period: string;
-  orbital_period: string;
-  gravity: string;
-  population: string;
-  climate: string;
-  terrain: string;
-  surface_water: string;
+  category: Planets;
 };
 
-export function PlanetCard({
-  name,
-  diameter,
-  rotation_period,
-  orbital_period,
-  gravity,
-  population,
-  climate,
-  terrain,
-  surface_water,
-}: Props) {
+export function PlanetCard({ category }: Props) {
+  const {
+    name,
+    diameter,
+    rotation_period,
+    orbital_period,
+    gravity,
+    population,
+    climate,
+    terrain,
+    surface_water,
+  } = category;
+
   return (
     <Card>
       <CardHeader>

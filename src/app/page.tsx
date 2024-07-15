@@ -143,176 +143,66 @@ export default function Page() {
           ) : (
             data?.results?.map((categories: Categories, index) => {
               //   ------------------ How can we refactor this? ------------------
-              // Make special Card components for each category: Yes, also create switch case
               // How to render  items which are an array without another fetch?
-              if (category == "films") {
-                const {
-                  title,
-                  episode_id,
-                  opening_crawl,
-                  director,
-                  producer,
-                  release_date,
-                } = categories as Films;
+              switch (category) {
+                case "films":
+                  const {
+                    title,
+                    episode_id,
+                    opening_crawl,
+                    director,
+                    producer,
+                    release_date,
+                  } = categories as Films;
 
-                return (
-                  <FilmsCard
-                    key={`${category}+${index}`}
-                    title={title}
-                    episode_id={episode_id}
-                    opening_crawl={opening_crawl}
-                    director={director}
-                    producer={producer}
-                    release_date={release_date}
-                  />
-                );
-              } else if (category == "people") {
-                const {
-                  name,
-                  birth_year,
-                  eye_color,
-                  gender,
-                  hair_color,
-                  height,
-                  mass,
-                  skin_color,
-                  homeworld,
-                } = categories as People;
-
-                return (
-                  <PersonCard
-                    key={`${category}+${index}`}
-                    name={name}
-                    birth_year={birth_year}
-                    eye_color={eye_color}
-                    gender={gender}
-                    hair_color={hair_color}
-                    height={height}
-                    mass={mass}
-                    skin_color={skin_color}
-                    homeworld={homeworld}
-                  />
-                );
-              } else if (category == "planets") {
-                const {
-                  name,
-                  diameter,
-                  rotation_period,
-                  orbital_period,
-                  gravity,
-                  population,
-                  climate,
-                  terrain,
-                  surface_water,
-                } = categories as Planets;
-
-                return (
-                  <PlanetCard
-                    key={`${categories}+${index}`}
-                    name={name}
-                    diameter={diameter}
-                    rotation_period={rotation_period}
-                    orbital_period={orbital_period}
-                    gravity={gravity}
-                    population={population}
-                    climate={climate}
-                    terrain={terrain}
-                    surface_water={surface_water}
-                  />
-                );
-              } else if (category == "species") {
-                const {
-                  name,
-                  classification,
-                  designation,
-                  average_height,
-                  average_lifespan,
-                  eye_colors,
-                  hair_colors,
-                  skin_colors,
-                  language,
-                } = categories as Species;
-
-                return (
-                  <SpeciesCard
-                    key={`${categories}+${index}`}
-                    name={name}
-                    classification={classification}
-                    designation={designation}
-                    average_height={average_height}
-                    average_lifespan={average_lifespan}
-                    eye_colors={eye_colors}
-                    hair_colors={hair_colors}
-                    skin_colors={skin_colors}
-                    language={language}
-                  />
-                );
-              } else if (category == "starships") {
-                const {
-                  name,
-                  model,
-                  starship_class,
-                  manufacturer,
-                  cost_in_credits,
-                  length,
-                  crew,
-                  passengers,
-                  max_atmosphering_speed,
-                  hyperdrive_rating,
-                  MGLT,
-                  cargo_capacity,
-                  consumables,
-                } = categories as Starships;
-
-                return (
-                  <StarshipCard
-                    key={`${categories}+${index}`}
-                    name={name}
-                    model={model}
-                    starship_class={starship_class}
-                    manufacturer={manufacturer}
-                    cost_in_credits={cost_in_credits}
-                    length={length}
-                    crew={crew}
-                    passengers={passengers}
-                    max_atmosphering_speed={max_atmosphering_speed}
-                    hyperdrive_rating={hyperdrive_rating}
-                    MGLT={MGLT}
-                    cargo_capacity={cargo_capacity}
-                    consumables={consumables}
-                  />
-                );
-              } else if (category == "vehicles") {
-                const {
-                  name,
-                  model,
-                  vehicle_class,
-                  manufacturer,
-                  length,
-                  cost_in_credits,
-                  crew,
-                  passengers,
-                  max_atmosphering_speed,
-                  cargo_capacity,
-                  consumables,
-                } = categories as Vehicles;
-
-                return (
-                  <VehicleCard
-                    key={`${categories}+${index}`}
-                    name={name}
-                    model={model}
-                    vehicle_class={vehicle_class}
-                    manufacturer={manufacturer}
-                    length={length}
-                    cost_in_credits={cost_in_credits}
-                    crew={crew}
-                    passengers={passengers}
-                    max_atmosphering_speed={max_atmosphering_speed}
-                    cargo_capacity={cargo_capacity}
-                    consumables={consumables}
-                  />
-                );
+                  return (
+                    <FilmsCard
+                      key={`${category}+${index}`}
+                      title={title}
+                      episode_id={episode_id}
+                      opening_crawl={opening_crawl}
+                      director={director}
+                      producer={producer}
+                      release_date={release_date}
+                    />
+                  );
+                case "people":
+                  return (
+                    <PersonCard
+                      key={`${category}+${index}`}
+                      category={categories as People}
+                    />
+                  );
+                case "planets":
+                  return (
+                    <PlanetCard
+                      key={`${categories}+${index}`}
+                      category={categories as Planets}
+                    />
+                  );
+                case "species":
+                  return (
+                    <SpeciesCard
+                      key={`${categories}+${index}`}
+                      category={categories as Species}
+                    />
+                  );
+                case "starships":
+                  return (
+                    <StarshipCard
+                      key={`${categories}+${index}`}
+                      category={categories as Starships}
+                    />
+                  );
+                case "vehicles":
+                  return (
+                    <VehicleCard
+                      key={`${categories}+${index}`}
+                      category={categories as Vehicles}
+                    />
+                  );
+                default:
+                  console.log(`Sorry, no results.`);
               }
             })
           )}

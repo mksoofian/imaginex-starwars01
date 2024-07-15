@@ -9,32 +9,24 @@ import {
 } from "@chakra-ui/react";
 
 type Props = {
-  name: string;
-  model: string;
-  vehicle_class: string;
-  manufacturer: string;
-  length: string;
-  cost_in_credits: string;
-  crew: string;
-  passengers: string;
-  max_atmosphering_speed: string;
-  cargo_capacity: string;
-  consumables: string;
+  category: Vehicles;
 };
 
-export function VehicleCard({
-  name,
-  model,
-  vehicle_class,
-  manufacturer,
-  length,
-  cost_in_credits,
-  crew,
-  passengers,
-  max_atmosphering_speed,
-  cargo_capacity,
-  consumables,
-}: Props) {
+export function VehicleCard({ category }: Props) {
+  const {
+    name,
+    model,
+    vehicle_class,
+    manufacturer,
+    length,
+    cost_in_credits,
+    crew,
+    passengers,
+    max_atmosphering_speed,
+    cargo_capacity,
+    consumables,
+  } = category;
+
   return (
     <Card>
       <CardHeader>

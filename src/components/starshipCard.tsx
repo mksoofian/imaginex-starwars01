@@ -9,36 +9,26 @@ import {
 } from "@chakra-ui/react";
 
 type Props = {
-  name: string;
-  model: string;
-  starship_class: string;
-  manufacturer: string;
-  cost_in_credits: string;
-  length: string;
-  crew: string;
-  passengers: string;
-  max_atmosphering_speed: string;
-  hyperdrive_rating: string;
-  MGLT: string;
-  cargo_capacity: string;
-  consumables: string;
+  category: Starships;
 };
 
-export function StarshipCard({
-  name,
-  model,
-  starship_class,
-  manufacturer,
-  cost_in_credits,
-  length,
-  crew,
-  passengers,
-  max_atmosphering_speed,
-  hyperdrive_rating,
-  MGLT,
-  cargo_capacity,
-  consumables,
-}: Props) {
+export function StarshipCard({ category }: Props) {
+  const {
+    name,
+    model,
+    starship_class,
+    manufacturer,
+    cost_in_credits,
+    length,
+    crew,
+    passengers,
+    max_atmosphering_speed,
+    hyperdrive_rating,
+    MGLT,
+    cargo_capacity,
+    consumables,
+  } = category;
+
   return (
     <Card>
       <CardHeader>
