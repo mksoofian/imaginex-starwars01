@@ -140,42 +140,42 @@ export default function Page() {
                 case "films":
                   return (
                     <FilmsCard
-                      key={`${category}+${index}`}
+                      key={(categories as Films).title}
                       category={categories as Films}
                     />
                   );
                 case "people":
                   return (
                     <PersonCard
-                      key={`${category}+${index}`}
+                      key={(categories as People).name}
                       category={categories as People}
                     />
                   );
                 case "planets":
                   return (
                     <PlanetCard
-                      key={`${categories}+${index}`}
+                      key={(categories as Planets).name}
                       category={categories as Planets}
                     />
                   );
                 case "species":
                   return (
                     <SpeciesCard
-                      key={`${categories}+${index}`}
+                      key={(categories as Species).name}
                       category={categories as Species}
                     />
                   );
                 case "starships":
                   return (
                     <StarshipCard
-                      key={`${categories}+${index}`}
+                      key={(categories as Starships).name}
                       category={categories as Starships}
                     />
                   );
                 case "vehicles":
                   return (
                     <VehicleCard
-                      key={`${categories}+${index}`}
+                      key={(categories as Vehicles).name}
                       category={categories as Vehicles}
                     />
                   );
