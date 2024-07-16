@@ -35,7 +35,7 @@ export function PersonCard({ category }: Props) {
                 </ListItem>
               );
             }
-
+            // Otherwise, just make sure it presents key in Pascal Case
             const pascalCase = toPascalCase(key);
             return (
               <ListItem key={category.url} paddingLeft={3}>

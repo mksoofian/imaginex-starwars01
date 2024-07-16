@@ -3,6 +3,7 @@
 import { FilmsCard } from "@/components/filmCard";
 import { PersonCard } from "@/components/personCard";
 import { PlanetCard } from "@/components/planetCard";
+import { ResultCard } from "@/components/resultCard";
 import { SpeciesCard } from "@/components/speciesCard";
 import { StarshipCard } from "@/components/starshipCard";
 import { VehicleCard } from "@/components/vehicleCard";
@@ -50,7 +51,7 @@ export default function Page() {
         .then((res) => res.json())
         .then((data) => {
           setData(data);
-          console.log(data);
+          //   console.log(data); ------------------------DELETE THIS LINE IN PRODUCTION
           setIsLoading(false);
         })
         .catch((error) => setError("Oops, something went wrong."));
@@ -146,37 +147,42 @@ export default function Page() {
                   );
                 case "people":
                   return (
-                    <PersonCard
-                      key={(categories as People).name}
+                    <ResultCard
+                      key={(categories as People).url}
                       category={categories as People}
+                      title={(categories as People).name}
                     />
                   );
                 case "planets":
                   return (
-                    <PlanetCard
-                      key={(categories as Planets).name}
+                    <ResultCard
+                      key={(categories as Planets).url}
                       category={categories as Planets}
+                      title={(categories as Planets).name}
                     />
                   );
                 case "species":
                   return (
-                    <SpeciesCard
-                      key={(categories as Species).name}
+                    <ResultCard
+                      key={(categories as Species).url}
                       category={categories as Species}
+                      title={(categories as Species).name}
                     />
                   );
                 case "starships":
                   return (
-                    <StarshipCard
-                      key={(categories as Starships).name}
+                    <ResultCard
+                      key={(categories as Starships).url}
                       category={categories as Starships}
+                      title={(categories as Starships).name}
                     />
                   );
                 case "vehicles":
                   return (
-                    <VehicleCard
-                      key={(categories as Vehicles).name}
+                    <ResultCard
+                      key={(categories as Vehicles).url}
                       category={categories as Vehicles}
+                      title={(categories as Vehicles).name}
                     />
                   );
                 default:
