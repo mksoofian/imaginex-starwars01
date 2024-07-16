@@ -1,12 +1,6 @@
 "use client";
 
-import { FilmsCard } from "@/components/filmCard";
-import { PersonCard } from "@/components/personCard";
-import { PlanetCard } from "@/components/planetCard";
 import { ResultCard } from "@/components/resultCard";
-import { SpeciesCard } from "@/components/speciesCard";
-import { StarshipCard } from "@/components/starshipCard";
-import { VehicleCard } from "@/components/vehicleCard";
 import {
   AbsoluteCenter,
   Box,
@@ -140,9 +134,10 @@ export default function Page() {
               switch (category) {
                 case "films":
                   return (
-                    <FilmsCard
-                      key={(categories as Films).title}
+                    <ResultCard
+                      key={(categories as Films).url}
                       category={categories as Films}
+                      title={(categories as Films).title}
                     />
                   );
                 case "people":
